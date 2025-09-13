@@ -3,267 +3,317 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pomodoro Teal Timer con Música</title>
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <title>Teal-Doro</title>
     <style>
         body {
-            font-family: 'Comic Neue', cursive;
-            margin: 0;
-            padding: 0;
+            font-family: Consolas, monospace;
+            background-color: #008080;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, #006666, #003333);
-            color: white;
-        }
-
-        .pomodoro-container {
-            background-color: rgba(0, 0, 0, 0.3);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            width: 90%;
-            max-width: 400px;
-        }
-
-        h1 {
-            margin-top: 0;
-            color: #00cccc;
-            font-size: 28px;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
-        }
-
-        .timer {
-            font-size: 60px;
-            font-weight: bold;
-            margin: 20px 0;
-            text-shadow: 0 0 10px rgba(0, 204, 204, 0.5);
-        }
-
-        .controls {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            background-color: rgba(0, 204, 204, 0.7);
-            color: white;
-            font-family: 'Comic Neue', cursive;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        button:hover {
-            background-color: rgba(0, 153, 153, 0.9);
-            transform: scale(1.05);
-        }
-
-        button:disabled {
-            background-color: rgba(100, 100, 100, 0.7);
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .presets {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .preset-btn {
-            padding: 10px;
-            background-color: rgba(0, 102, 102, 0.7);
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'Comic Neue', cursive;
-        }
-
-        .preset-btn:hover {
-            background-color: rgba(0, 77, 77, 0.9);
-            transform: scale(1.05);
-        }
-
-        .sound-options {
-            margin-top: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background-color: rgba(0, 0, 0, 0.3);
-            padding: 10px;
-            border-radius: 5px;
-        }
-
-        .sound-options button {
-            padding: 5px 10px;
-            font-size: 0.8rem;
+            margin: 0;
+            padding: 20px;
         }
         
-        .divider {
-            height: 2px;
-            background-color: rgba(255, 255, 255, 0.3);
-            margin: 15px 0;
-            border-radius: 1px;
+        .container {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
-
-        .timer-complete {
-            animation: pulse 1s infinite alternate;
+        
+        h1 {
+            margin-top: 0;
+            color: #fff;
+            font-size: 28px;
+            margin-bottom: 20px;
         }
-
-        .bg-music-controls {
-            margin-top: 15px;
+        
+        .timer-display {
+            font-size: 60px;
+            margin: 20px 0;
+            font-weight: bold;
             background-color: rgba(0, 0, 0, 0.3);
-            padding: 10px;
-            border-radius: 5px;
+            padding: 15px;
+            border-radius: 8px;
+            transition: background-color 0.3s;
         }
-
-        .music-buttons {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-top: 10px;
+        
+        .timer-complete {
+            background-color: #e74c3c;
+            animation: pulse 1s infinite;
         }
-
-        .active-music {
-            background-color: rgba(0, 204, 204, 0.9) !important;
-            transform: scale(1.05);
-        }
-
+        
         @keyframes pulse {
-            from {
-                color: white;
-            }
-            to {
-                color: #00cccc;
-            }
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        
+        .controls, .presets {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        button {
+            background-color: #004d4d;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: Consolas, monospace;
+            transition: background-color 0.2s;
+        }
+        
+        button:hover {
+            background-color: #006666;
+        }
+        
+        button:disabled {
+            background-color: #667777;
+            cursor: not-allowed;
+        }
+        
+        .stop-alarm {
+            display: none;
+            background-color: #e74c3c;
+            margin-top: 15px;
+        }
+        
+        .stop-alarm:hover {
+            background-color: #c0392b;
+        }
+        
+        .settings {
+            margin-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 20px;
+        }
+        
+        .volume-control {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .volume-control span {
+            margin-bottom: 5px;
+        }
+        
+        input[type="range"] {
+            width: 80%;
+            margin: 10px 0;
+        }
+        
+        .music-controls {
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 20px;
+        }
+        
+        .music-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .music-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .active-music {
+            background-color: #27ae60;
+        }
+        
+        .active-music:hover {
+            background-color: #2ecc71;
+        }
+        
+        .mode-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .active-mode {
+            background-color: #27ae60;
+        }
+        
+        .session-counter {
+            margin-top: 15px;
+            font-size: 16px;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
-<div class="pomodoro-container">
-    <h1>Pomodoro Teal Timer</h1>
-    <div class="divider"></div>
+    <div class="container">
+        <h1>Teal-Doro</h1>
+        
+        <div class="mode-controls">
+            <button id="workModeBtn" class="active-mode" onclick="setMode('work')">Trabajo</button>
+            <button id="breakModeBtn" onclick="setMode('break')">Descanso</button>
+        </div>
+        
+        <div id="timer" class="timer-display">25:00</div>
+        
+        <div class="controls">
+            <button id="start">Iniciar</button>
+            <button id="pause" disabled>Pausar</button>
+            <button id="reset">Reiniciar</button>
+        </div>
+        
+        <div class="presets">
+            <button onclick="setTime(5)">5m</button>
+            <button onclick="setTime(10)">10m</button>
+            <button onclick="setTime(25)">25m</button>
+            <button onclick="setTime(50)">50m</button>
+        </div>
+        
+        <button id="stop-alarm" class="stop-alarm">Detener Alarma</button>
+        
+        <div class="session-counter">
+            <span>Sesiones: <span id="sessionCount">0</span></span>
+        </div>
+        
+        <div class="settings">
+            <div class="volume-control">
+                <span>Volumen de Alarma:</span>
+                <input type="range" id="volume" min="0" max="1" step="0.1" value="0.7">
+            </div>
+            <button onclick="testSound()">Probar Sonido</button>
+        </div>
+        
+        <div class="music-controls">
+            <div class="music-title">Música de Fondo</div>
+            <div class="music-buttons">
+                <button id="noMusicBtn" onclick="toggleMusic('none')" class="active-music">Sin Música</button>
+                <button id="lofiBtn" onclick="toggleMusic('lofi')">Lofi</button>
+                <button id="whiteNoiseBtn" onclick="toggleMusic('whiteNoise')">Café Lofi</button>
+            </div>
+            <div class="volume-control">
+                <span>Volumen de Música:</span>
+                <input type="range" id="musicVolume" min="0" max="1" step="0.1" value="0.5" onchange="updateMusicVolume()">
+            </div>
+        </div>
+    </div>
     
-    <div class="timer" id="timer">25:00</div>
-
-    <div class="controls">
-        <button id="startBtn">Start</button>
-        <button id="pauseBtn" disabled>Pause</button>
-        <button id="resetBtn">Reset</button>
-    </div>
-
-    <div class="presets">
-        <div class="preset-btn" onclick="setTime(5)">5 min</div>
-        <div class="preset-btn" onclick="setTime(10)">10 min</div>
-        <div class="preset-btn" onclick="setTime(25)">25 min</div>
-        <div class="preset-btn" onclick="setTime(50)">50 min</div>
-    </div>
-
+    <!-- Audio elements -->
+    <audio id="alarm" src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_0625c1539c.mp3?filename=alarm-clock-short-6402.mp3"></audio>
+    
     <!-- Música de fondo -->
-    <div class="bg-music-controls">
-        <div>
-            <label>Música de Fondo:</label>
-            <input type="range" id="bgVolume" min="0" max="1" step="0.1" value="0.3">
-        </div>
-        <div class="music-buttons">
-            <button id="lofiBtn" onclick="toggleMusic('lofi')">Lofi</button>
-            <button id="whiteNoiseBtn" onclick="toggleMusic('whiteNoise')">Ruido Blanco</button>
-            <button id="noMusicBtn" onclick="toggleMusic('none')" class="active-music">Sin Música</button>
-        </div>
-    </div>
-
-    <!-- Sonidos de alarma -->
-    <audio id="alarmSound" loop>
-        <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" type="audio/mpeg">
-        Tu navegador no soporta el elemento de audio.
-    </audio>
-    
-    <!-- Músicas de fondo -->
     <audio id="lofiMusic" loop>
-        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
+        <source src="https://cdn.pixabay.com/download/audio/2022/10/25/audio_9e30eb0530.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
     </audio>
     
     <audio id="whiteNoiseMusic" loop>
-        <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b8a5e77a.mp3?filename=white-noise-10min-26363.mp3" type="audio/mpeg">
+        <source src="https://cdn.pixabay.com/download/audio/2021/08/09/audio_12b0c7443c.mp3?filename=coffee-shop-ambience-4-15277.mp3" type="audio/mpeg">
     </audio>
-    
-    <div class="sound-options">
-        <label for="volume">Volumen de alarma:</label>
-        <input type="range" id="volume" min="0" max="1" step="0.1" value="0.7">
-        <button onclick="testSound()">Probar sonido</button>
-        <button id="stopAlarmBtn" style="display: none;">Detener alarma</button>
-    </div>
-</div>
 
 <script>
+    // DOM elements
+    const timerDisplay = document.getElementById('timer');
+    const startBtn = document.getElementById('start');
+    const pauseBtn = document.getElementById('pause');
+    const resetBtn = document.getElementById('reset');
+    const stopAlarmBtn = document.getElementById('stop-alarm');
+    const alarmSound = document.getElementById('alarm');
+    const lofiMusic = document.getElementById('lofiMusic');
+    const whiteNoiseMusic = document.getElementById('whiteNoiseMusic');
+    const workModeBtn = document.getElementById('workModeBtn');
+    const breakModeBtn = document.getElementById('breakModeBtn');
+    const sessionCountDisplay = document.getElementById('sessionCount');
+    
+    // Music control buttons
+    const noMusicBtn = document.getElementById('noMusicBtn');
+    const lofiBtn = document.getElementById('lofiBtn');
+    const whiteNoiseBtn = document.getElementById('whiteNoiseBtn');
+    
+    // Timer variables
     let timer;
     let timeLeft = 25 * 60; // 25 minutes in seconds
     let isRunning = false;
     let alarmPlaying = false;
-    let currentMusic = 'none'; // 'none', 'lofi', 'whiteNoise'
-
-    const timerDisplay = document.getElementById('timer');
-    const startBtn = document.getElementById('startBtn');
-    const pauseBtn = document.getElementById('pauseBtn');
-    const resetBtn = document.getElementById('resetBtn');
-    const stopAlarmBtn = document.getElementById('stopAlarmBtn');
-    const alarmSound = document.getElementById('alarmSound');
-    const lofiMusic = document.getElementById('lofiMusic');
-    const whiteNoiseMusic = document.getElementById('whiteNoiseMusic');
-    const bgVolumeControl = document.getElementById('bgVolume');
-
-    // Inicializar volumen de música
-    lofiMusic.volume = bgVolumeControl.value;
-    whiteNoiseMusic.volume = bgVolumeControl.value;
-
-    // Actualizar volumen cuando cambia el control
-    bgVolumeControl.addEventListener('input', function() {
-        lofiMusic.volume = this.value;
-        whiteNoiseMusic.volume = this.value;
-    });
-
-    // Toggle entre opciones de música
+    let currentMusic = 'none';
+    let currentMode = 'work';
+    let sessionCount = 0;
+    
+    // Set work/break mode
+    function setMode(mode) {
+        // Solo cambiar modo si el timer no está corriendo
+        if (!isRunning) {
+            currentMode = mode;
+            
+            // Actualizar estilos de botones
+            if (mode === 'work') {
+                workModeBtn.classList.add('active-mode');
+                breakModeBtn.classList.remove('active-mode');
+                setTime(25); // Valor por defecto para trabajo: 25 minutos
+            } else {
+                workModeBtn.classList.remove('active-mode');
+                breakModeBtn.classList.add('active-mode');
+                setTime(5); // Valor por defecto para descanso: 5 minutos
+            }
+        }
+    }
+    
+    // Set music volume from slider
+    function updateMusicVolume() {
+        const volume = document.getElementById('musicVolume').value;
+        lofiMusic.volume = volume;
+        whiteNoiseMusic.volume = volume;
+    }
+    
+    // Initialize music volume
+    updateMusicVolume();
+    
+    // Toggle background music
     function toggleMusic(type) {
-        // Detener toda la música primero
+        // Detener todas las músicas primero
         lofiMusic.pause();
         whiteNoiseMusic.pause();
         
-        // Quitar clase activa de todos los botones
-        document.getElementById('lofiBtn').classList.remove('active-music');
-        document.getElementById('whiteNoiseBtn').classList.remove('active-music');
-        document.getElementById('noMusicBtn').classList.remove('active-music');
+        // Quitar la clase activa de todos los botones
+        noMusicBtn.classList.remove('active-music');
+        lofiBtn.classList.remove('active-music');
+        whiteNoiseBtn.classList.remove('active-music');
         
-        // Si ya estaba activo el mismo tipo, entonces simplemente detenemos y salimos
-        if (currentMusic === type) {
-            currentMusic = 'none';
-            document.getElementById('noMusicBtn').classList.add('active-music');
-            return;
-        }
-        
-        currentMusic = type;
-        
-        // Iniciar la música seleccionada
+        // Configurar según la selección
         if (type === 'lofi') {
+            lofiMusic.currentTime = 0;
             lofiMusic.play();
-            document.getElementById('lofiBtn').classList.add('active-music');
-        } else if (type === 'whiteNoise') {
+            lofiBtn.classList.add('active-music');
+            currentMusic = 'lofi';
+        } 
+        else if (type === 'whiteNoise') {
+            whiteNoiseMusic.currentTime = 0;
             whiteNoiseMusic.play();
-            document.getElementById('whiteNoiseBtn').classList.add('active-music');
-        } else {
-            document.getElementById('noMusicBtn').classList.add('active-music');
+            whiteNoiseBtn.classList.add('active-music');
+            currentMusic = 'whiteNoise';
+        }
+        else {
+            // Sin música
+            noMusicBtn.classList.add('active-music');
+            currentMusic = 'none';
         }
     }
-
+    
     // Format time as MM:SS
     function formatTime(seconds) {
         const mins = Math.floor(seconds / 60);
@@ -284,6 +334,19 @@
         alarmPlaying = true;
         stopAlarmBtn.style.display = 'inline-block';
         timerDisplay.classList.add('timer-complete');
+        
+        // Detener el sonido después de 1 segundo
+        setTimeout(() => {
+            alarmSound.pause();
+            alarmSound.currentTime = 0;
+            alarmPlaying = false;
+        }, 1000);
+        
+        // Si estaba en modo trabajo, incrementar el contador de sesiones
+        if (currentMode === 'work') {
+            sessionCount++;
+            sessionCountDisplay.textContent = sessionCount;
+        }
     }
 
     // Stop alarm
@@ -317,7 +380,7 @@
                     startBtn.disabled = false;
                     pauseBtn.disabled = true;
                     
-                    // Reproducir el sonido de alarma sin detener el contador
+                    // Reproducir el sonido de alarma
                     playAlarm();
                 }
             }, 1000);
@@ -338,7 +401,13 @@
     function resetTimer() {
         clearInterval(timer);
         isRunning = false;
-        timeLeft = 25 * 60; // Reset to 25 minutes
+        
+        if (currentMode === 'work') {
+            timeLeft = 25 * 60; // Reset to 25 minutes for work mode
+        } else {
+            timeLeft = 5 * 60;  // Reset to 5 minutes for break mode
+        }
+        
         updateDisplay();
         startBtn.disabled = false;
         pauseBtn.disabled = true;
@@ -367,11 +436,11 @@
         alarmSound.currentTime = 0;
         alarmSound.play();
         
-        // Detener el sonido después de 2 segundos para la prueba
+        // Detener el sonido después de 1 segundo para la prueba
         setTimeout(() => {
             alarmSound.pause();
             alarmSound.currentTime = 0;
-        }, 2000);
+        }, 1000);
     }
 
     // Actualizar el volumen cuando cambia
